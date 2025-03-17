@@ -1,5 +1,6 @@
 import math
 
+from playsound import playsound
 
 def caleyeposY(detection_result):
     left_eye=[1,2]
@@ -128,3 +129,5 @@ def if_hands_symmetric(detection_result):
         return True
     else:
         return False
+def sound(audio):
+    playsound(audio)
