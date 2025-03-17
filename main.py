@@ -80,6 +80,8 @@ while True:
         left_eye_avgY,right_eye_avgY=caleyeposY(detection_result)
         left_hand_avgY , right_hand_avgY = calhandposY(detection_result)
         mouth_avgY = calmouthposY(detection_result)
+        left_shoulder,right_shoulder=caleysposY(detection_result)
+        left_elbow,right_elbow=caleysposY(detection_result)
         #jaw_avg=caljawposY(detection_result)
         if now_status != 5:
             atBottomadded = False
