@@ -81,7 +81,7 @@ while True:
         left_hand_avgY , right_hand_avgY = calhandposY(detection_result)
         mouth_avgY = calmouthposY(detection_result)
         left_shoulder,right_shoulder=caleysposY(detection_result)
-        left_elbow,right_elbow=caleysposY(detection_result)
+        
         #jaw_avg=caljawposY(detection_result)
         if now_status != 5:
             atBottomadded = False
@@ -158,7 +158,7 @@ while True:
                 elif if_shoulder_down(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     now_status = 4
                 if (if_body_straight(detection_result)) and (if_hands_symmetric(detection_result)) and (if_hand_straight(detection_result)):
-                    if (not atBottomadded) and can_count and (angle(left_hand_avgY,left_elbow,left_shoulder)>=100) and (angle(right_hand_avgY,right_elbow,right_shoulder)>=100):
+                    if (not atBottomadded) and can_count:
                         count+=1
                         can_count = False
                     atBottomadded = True
