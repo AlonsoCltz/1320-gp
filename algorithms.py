@@ -24,6 +24,10 @@ def caleyeposY(detection_result):
         return False,False
     right_eye_avgY/=cnt
     return left_eye_avgY,right_eye_avgY
+def calelbowposY(detection_result):
+    left_elbow=detection_result.pose_landmarks[0][13].y
+    right_elbow=detection_result.pose_landmarks[0][14].y
+    return left_elbow,right_elbow
 def calhandposY(detection_result):#average hight position Y of left hand and right hand
     left_hand = [16,18,20,22]
     right_hand = [15,17,19,21]
