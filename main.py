@@ -40,6 +40,7 @@ if not vs.stream.isOpened():
 
 now_status = 0 #set the current status to stand by mode
 count=0
+wrong_count=0
 status = {0:'stand by', 1: 'raise hand', 2: 'rising', 3: 'at the top waiting to come down', 4: 'falling', 5: 'at bottom'}
 cap = openexistingvideo.cap
 cntfps = 0 #每5次检查手部位置,比较肩膀是否上升
@@ -160,14 +161,25 @@ while True:
                 if (if_body_straight(detection_result)) and (if_hands_symmetric(detection_result)) and (if_hand_straight(detection_result)):
                     if (not atBottomadded) and can_count:
                         count+=1
+                        print(str(count),"good")
                         can_count = False
                     atBottomadded = True
                 elif not (if_body_straight(detection_result)):
                     print('body not straight')
+                    wrong_count+=1
                 elif not (if_hands_symmetric(detection_result)):
                     print('not symmetric')
+                    wrong_count+=1
                 elif not (if_hand_straight(detection_result)):
                     print('hand not straight')
+                    wrong_count+=1
+                if count>=5:
+                    print("Congratulations! You have successfully finished 5 times!")
+                elif count>=10:
+                    print("Awesome! You have successfully finished 10 times!, take a rest!")
+                if wrong_count>=2:
+                    print("come on, you can do this!")
+                    wrong_count=0
                 previous_shoulder_left,previous_shoulder_right=current_shoulder_left,current_shoulder_right
                 
         try:
