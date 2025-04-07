@@ -26,6 +26,18 @@ def draw_landmarks_on_image(image, detection_result):
         #[[]]
         #cv2.putText(image, f'{i} {x} {y}', (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
         cv2.putText(image, f'{i}', (x-5, y+3 ), cv2.FONT_HERSHEY_SIMPLEX, 0.25, (225,0, 0), 1)
+    if (status[now_status] == 'rising'):
+        #draw a line passing through left and right shoulder
+        cv2.line(image, (int(pose_landmarks[11].x * image.shape[1]), int(pose_landmarks[11].y * image.shape[0])), (int(pose_landmarks[12].x * image.shape[1]), int(pose_landmarks[12].y * image.shape[0])), (255, 0, 0), 2)
+        #draw a line passing through left and right hand
+        cv2.line(image, (int(pose_landmarks[15].x * image.shape[1]), int(pose_landmarks[15].y * image.shape[0])), (int(pose_landmarks[16].x * image.shape[1]), int(pose_landmarks[16].y * image.shape[0])), (255, 0, 0), 2)
+    if (status[now_status] == 'falling'):
+        #draw lines on arms
+        cv2.line(image, (int(pose_landmarks[11].x * image.shape[1]), int(pose_landmarks[11].y * image.shape[0])), (int(pose_landmarks[13].x * image.shape[1]), int(pose_landmarks[13].y * image.shape[0])), (255, 0, 0), 2)
+        cv2.line(image, (int(pose_landmarks[12].x * image.shape[1]), int(pose_landmarks[12].y * image.shape[0])), (int(pose_landmarks[14].x * image.shape[1]), int(pose_landmarks[14].y * image.shape[0])), (255, 0, 0), 2)
+        cv2.line(image, (int(pose_landmarks[16].x * image.shape[1]), int(pose_landmarks[16].y * image.shape[0])), (int(pose_landmarks[14].x * image.shape[1]), int(pose_landmarks[14].y * image.shape[0])), (255, 0, 0), 2)
+        cv2.line(image, (int(pose_landmarks[13].x * image.shape[1]), int(pose_landmarks[13].y * image.shape[0])), (int(pose_landmarks[15].x * image.shape[1]), int(pose_landmarks[15].y * image.shape[0])), (255, 0, 0), 2)
+
     return image
 
 
@@ -81,7 +93,8 @@ while True:
         left_eye_avgY,right_eye_avgY=caleyeposY(detection_result)
         left_hand_avgY , right_hand_avgY = calhandposY(detection_result)
         mouth_avgY = calmouthposY(detection_result)
-        left_shoulder,right_shoulder=caleysposY(detection_result)
+        #left_shoulder,right_shoulder=caleysposY(detection_result) 我看不出來這是什麼
+        
         
         #jaw_avg=caljawposY(detection_result)
         if now_status != 5:
@@ -114,8 +127,10 @@ while True:
                 if if_shoulder_down(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     now_status = 4
                 
-                if if_shoulder_up(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right) and left_hand_avgY != False and mouth_avgY != False:
-                    if not(left_hand_avgY < mouth_avgY and right_hand_avgY < mouth_avgY):
+                #if if_shoulder_up(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right) and left_hand_avgY != False and mouth_avgY != False:
+                    #if not(left_hand_avgY < mouth_avgY and right_hand_avgY < mouth_avgY):
+                if if_shoulder_up(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right) and left_hand_avgY != False:
+                    if not(left_hand_avgY <= current_shoulder_left and right_hand_avgY <= current_shoulder_right):
                         
                         #previous_shoulder_left,previous_shoulder_right=find_shoulder_posY(detection_result)
                         
