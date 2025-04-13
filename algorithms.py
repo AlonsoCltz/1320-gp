@@ -1,6 +1,8 @@
 import math
-
+import threading
 from playsound import playsound
+def play_audio(file_path):
+    threading.Thread(target=playsound, args=(file_path,)).start()
 
 def caleyeposY(detection_result):
     left_eye=[1,2]
@@ -133,5 +135,3 @@ def if_hands_symmetric(detection_result):
         return True
     else:
         return False
-def sound(audio):
-    playsound(audio)
