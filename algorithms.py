@@ -1,6 +1,8 @@
 import math
 import threading
 from playsound import playsound
+def play_audio(file_path):
+    threading.Thread(target=playsound, args=(file_path,)).start()
 
 def play_audio(file_path):
     threading.Thread(target=playsound, args=(file_path,)).start()
