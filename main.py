@@ -161,6 +161,7 @@ while True:
                 if if_shoulder_up(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     now_status = 2
                     print('not too fast')
+                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Not_too_fast.mp3")
                 elif if_shoulder_stable(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     now_status = 5
                 previous_shoulder_left,previous_shoulder_right=current_shoulder_left,current_shoulder_right
@@ -177,31 +178,31 @@ while True:
                     if (not atBottomadded) and can_count:
                         count+=1
                         print(str(count),"good")
-                        #play_audio("Good.mp3")
+                        play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Good.mp3")
                         can_count = False
                     atBottomadded = True
                 elif not (if_body_straight(detection_result)):
                     print('body not straight')
-                    #play_audio("Not_straight.mp3")
+                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Not_straight.mp3")
                     wrong_count+=1
                 elif not (if_hands_symmetric(detection_result)):
                     print('not symmetric')
-                    #play_audio("Not_symmetric.mp3")
+                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Not_symmetric.mp3")
                     wrong_count+=1
                 elif not (if_hand_straight(detection_result)):
                     print('hand not straight')
-                    #play_audio("Hands_not_straight.mp3")
+                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Hands_not_straight.mp3")
                     wrong_count+=1
-                if count>=5:
+                if count%5==0 and count>0:
                     print("Congratulations! You have successfully finished 5 times!")
-                    #play_audio("Congratulations_for_5_times.mp3")
-                elif count>=10:
+                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Good_for_5.mp3")
+                elif count%10==0 and count>0:
                     print("Awesome! You have successfully finished 10 times!, take a rest!")
-                    #play_audio("Congratulations_for_10_times.mp3")
-                    #play_audio("Take_rest.mp3")
+                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Good_for_10.mp3")
+                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Take_rest.mp3")
                 if wrong_count>=2:
                     print("come on, you can do this!")
-                    #play_audio("Encouragement.mp3")
+                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Encouragement.mp3")
                     wrong_count=0
                 previous_shoulder_left,previous_shoulder_right=current_shoulder_left,current_shoulder_right
                 

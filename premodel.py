@@ -5,10 +5,11 @@ import cv2
 import imutils
 import os
 print(os.getcwd())
-
+current_dir = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(current_dir, 'pose_landmarker_heavy.task')
 
 # STEP 2: Create an HandLandmarker object.
-base_options = python.BaseOptions(model_asset_path='pose_landmarker_heavy.task')
+base_options = python.BaseOptions(model_asset_path=model_path)
 options = vision.PoseLandmarkerOptions(base_options=base_options)
 detector = vision.PoseLandmarker.create_from_options(options)
 
