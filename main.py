@@ -8,6 +8,22 @@ import premodel
 import openexistingvideo
 import algorithms
 from algorithms import *
+import time
+AUDIO_COOLDOWN=2.0
+audio_last_played={}
+def play_audio_with_cooldown(audio_path):
+    global audio_last_played
+    current_time = time.time()
+    
+    # check if recently played
+    if audio_path in audio_last_played:
+        last_played_time = audio_last_played[audio_path]
+        if current_time - last_played_time < AUDIO_COOLDOWN:
+            return  # if the time duration is too short, stop playing audio
+    
+    # play audio
+    play_audio(audio_path)
+    audio_last_played[audio_path] = current_time
 
 def draw_landmarks_on_image(image, detection_result):
     # Make a writable copy of the image
@@ -52,6 +68,7 @@ if not vs.stream.isOpened():
 
 now_status = 0 #set the current status to stand by mode
 count=0
+count_for_video=0
 wrong_count=0
 status = {0:'stand by', 1: 'raise hand', 2: 'rising', 3: 'at the top waiting to come down', 4: 'falling', 5: 'at bottom'}
 cap = openexistingvideo.cap
@@ -161,7 +178,7 @@ while True:
                 if if_shoulder_up(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     now_status = 2
                     print('not too fast')
-                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Not_too_fast.mp3")
+                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Slow.mp3")
                 elif if_shoulder_stable(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     now_status = 5
                 previous_shoulder_left,previous_shoulder_right=current_shoulder_left,current_shoulder_right
@@ -177,32 +194,36 @@ while True:
                 if (if_body_straight(detection_result)) and (if_hands_symmetric(detection_result)) and (if_hand_straight(detection_result)):
                     if (not atBottomadded) and can_count:
                         count+=1
+                        count_for_video=count
                         print(str(count),"good")
-                        play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Good.mp3")
+                        if count%5!=0 and count%10!=0:
+                            play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Good.mp3")
                         can_count = False
                     atBottomadded = True
                 elif not (if_body_straight(detection_result)):
                     print('body not straight')
-                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Not_straight.mp3")
+                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Bodynotstraight.mp3")
                     wrong_count+=1
                 elif not (if_hands_symmetric(detection_result)):
                     print('not symmetric')
-                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Not_symmetric.mp3")
+                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Notstmmetric.mp3")
                     wrong_count+=1
                 elif not (if_hand_straight(detection_result)):
                     print('hand not straight')
-                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Hands_not_straight.mp3")
+                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Handnotstraight.mp3")
                     wrong_count+=1
-                if count%5==0 and count>0:
+                if count_for_video%5==0 and count_for_video>0:
                     print("Congratulations! You have successfully finished 5 times!")
-                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Good_for_5.mp3")
-                elif count%10==0 and count>0:
+                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Good5.mp3")
+                    count_for_video+=1
+                elif count_for_video%10==0 and count_for_video>0:
                     print("Awesome! You have successfully finished 10 times!, take a rest!")
-                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Good_for_10.mp3")
-                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Take_rest.mp3")
+                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Good10.mp3")
+                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Rest.mp3")
+                    count_for_video+=1
                 if wrong_count>=2:
                     print("come on, you can do this!")
-                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Encouragement.mp3")
+                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Encourgement.mp3")
                     wrong_count=0
                 previous_shoulder_left,previous_shoulder_right=current_shoulder_left,current_shoulder_right
                 
