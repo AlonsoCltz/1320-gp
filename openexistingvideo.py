@@ -1,7 +1,7 @@
 import cv2
 
 # Open the video file
-video_path = 'testpictures/Secondtest.mp4'
+video_path = 'testpictures/firsttest.mp4'
 cap = cv2.VideoCapture(video_path)
 # Get the total number of frames
 total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))

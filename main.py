@@ -123,6 +123,7 @@ while True:
                 if left_hand_avgY < mouth_avgY and right_hand_avgY < mouth_avgY:
                     now_status = 1
         elif now_status == 1:#raise hand:
+            print("1")
             cntfps += 1
             if left_hand_avgY != False and mouth_avgY != False:
                 if not(left_hand_avgY < mouth_avgY and right_hand_avgY < mouth_avgY):
@@ -137,12 +138,16 @@ while True:
                     previous_shoulder_left,previous_shoulder_right=current_shoulder_left,current_shoulder_right
                     now_status = 4
         elif now_status == 2:#rising
+            print("2")
             cntfps += 1
             if cntfps == cntfpsthreshold:
                 cntfps = 0
                 current_shoulder_left,current_shoulder_right=find_shoulder_posY(detection_result)
                 if if_shoulder_down(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
+                    
+                    
                     now_status = 4
+                
                 
                 #if if_shoulder_up(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right) and left_hand_avgY != False and mouth_avgY != False:
                     #if not(left_hand_avgY < mouth_avgY and right_hand_avgY < mouth_avgY):
@@ -166,11 +171,13 @@ while True:
                             now_status = 0
                 previous_shoulder_left,previous_shoulder_right=current_shoulder_left,current_shoulder_right
         elif now_status == 3: #at the top waiting to come down
+            print("3")
             if left_hand_avgY != False and mouth_avgY != False:
                 if left_hand_avgY < mouth_avgY and right_hand_avgY < mouth_avgY:# and jaw_avg>left_hand_avgY:
                     now_status = 4
                     can_count = True
         elif now_status == 4: #falling
+            print("4")
             cntfps += 1
             if cntfps == cntfpsthreshold:
                 cntfps = 0
@@ -179,6 +186,7 @@ while True:
                     now_status = 2
                     print('not too fast')
                     play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Slow.mp3")
+                
                 elif if_shoulder_stable(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     now_status = 5
                 previous_shoulder_left,previous_shoulder_right=current_shoulder_left,current_shoulder_right
