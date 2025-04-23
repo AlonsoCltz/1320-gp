@@ -14,7 +14,8 @@ def readvideo(cap):
     if not ret:
         return None
     # Rotate the frame 90 degrees clockwise
-    frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+    #frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+    
     return frame
 
 

@@ -145,7 +145,7 @@ while True:
                 current_shoulder_left,current_shoulder_right=find_shoulder_posY(detection_result)
                 if if_shoulder_down(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     
-                    
+                    print('Havent reached the top')
                     now_status = 4
                 
                 
@@ -185,7 +185,7 @@ while True:
                 if if_shoulder_up(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     now_status = 2
                     print('not too fast')
-                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Slow.mp3")
+                    play_audio_with_cooldown("audio/Slow.mp3")
                 
                 elif if_shoulder_stable(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     now_status = 5
@@ -205,33 +205,33 @@ while True:
                         count_for_video=count
                         print(str(count),"good")
                         if count%5!=0 and count%10!=0:
-                            play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Good.mp3")
+                            play_audio_with_cooldown("audio/Good.mp3")
                         can_count = False
                     atBottomadded = True
                 elif not (if_body_straight(detection_result)):
                     print('body not straight')
-                    play_audio("D:/python/python_files/ENGG1320/engg1320/audio/Bodynotstraight.mp3")
+                    play_audio("audio/Bodynotstraight.mp3")
                     wrong_count+=1
                 elif not (if_hands_symmetric(detection_result)):
                     print('not symmetric')
-                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Notstmmetric.mp3")
+                    play_audio_with_cooldown("audio/Notstmmetric.mp3")
                     wrong_count+=1
                 elif not (if_hand_straight(detection_result)):
                     print('hand not straight')
-                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Handnotstraight.mp3")
+                    play_audio_with_cooldown("audio/Handnotstraight.mp3")
                     wrong_count+=1
                 if count_for_video%5==0 and count_for_video>0:
                     print("Congratulations! You have successfully finished 5 times!")
-                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Good5.mp3")
+                    play_audio_with_cooldown("audio/Good5.mp3")
                     count_for_video+=1
                 elif count_for_video%10==0 and count_for_video>0:
                     print("Awesome! You have successfully finished 10 times!, take a rest!")
-                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Good10.mp3")
-                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Rest.mp3")
+                    play_audio_with_cooldown("audio/Good10.mp3")
+                    play_audio_with_cooldown("audio/Rest.mp3")
                     count_for_video+=1
                 if wrong_count>=2:
                     print("come on, you can do this!")
-                    play_audio_with_cooldown("D:/python/python_files/ENGG1320/engg1320/audio/Encourgement.mp3")
+                    play_audio_with_cooldown("audio/Encourgement.mp3")
                     wrong_count=0
                 previous_shoulder_left,previous_shoulder_right=current_shoulder_left,current_shoulder_right
                 
