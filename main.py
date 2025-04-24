@@ -57,14 +57,14 @@ def draw_landmarks_on_image(image, detection_result):
     return image
 
 
-
+'''
 vs = VideoStream(src=0).start()  # 開啟攝影機
 
 # Add error handling for camera
 if not vs.stream.isOpened():
     print("Error: Could not open video stream.")
     exit()
-
+'''
 
 now_status = 0 #set the current status to stand by mode
 count=0
@@ -82,8 +82,8 @@ atBottomadded = False#prevent from multiple count at bottom
 can_count = False #make sure he already get on the top
 while True:
 
-    frame = vs.read()
-    #frame = openexistingvideo.readvideo(cap)
+    #frame = vs.read()
+    frame = openexistingvideo.readvideo(cap)
     #print(frame)
     if frame is not None:
         #print('running')
@@ -143,6 +143,8 @@ while True:
             if cntfps == cntfpsthreshold:
                 cntfps = 0
                 current_shoulder_left,current_shoulder_right=find_shoulder_posY(detection_result)
+                if not ((if_shoulder_symmetric(detection_result))):
+                    print('body not symmetric')
                 if if_shoulder_down(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     
                     print('Havent reached the top')
@@ -185,7 +187,7 @@ while True:
                 if if_shoulder_up(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     now_status = 2
                     print('not too fast')
-                    play_audio_with_cooldown("audio/Slow.mp3")
+                    #play_audio_with_cooldown("audio/Slow.mp3")
                 
                 elif if_shoulder_stable(previous_shoulder_left,current_shoulder_left,previous_shoulder_right,current_shoulder_right):
                     now_status = 5
@@ -217,7 +219,7 @@ while True:
                     play_audio_with_cooldown("audio/Notstmmetric.mp3")
                     wrong_count+=1
                 elif not (if_hand_straight(detection_result)):
-                    print('hand not straight')
+                    print('Didn\'t reach the bottom')
                     play_audio_with_cooldown("audio/Handnotstraight.mp3")
                     wrong_count+=1
                 if count_for_video%5==0 and count_for_video>0:

@@ -1,7 +1,7 @@
 import cv2
 
 # Open the video file
-video_path = 'testpictures/Secondtest.MP4'
+video_path = 'testpictures/firsttest.mp4'
 cap = cv2.VideoCapture(video_path)
 # Get the total number of frames
 total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -14,7 +14,7 @@ def readvideo(cap):
     if not ret:
         return None
     # Rotate the frame 90 degrees clockwise
-    frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+    #frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
     
     return frame
 

@@ -134,3 +134,13 @@ def if_hands_symmetric(detection_result):
         return True
     else:
         return False
+    
+def if_shoulder_symmetric(detection_result):
+    left_shoulder = detection_result.pose_landmarks[0][11].y
+    right_shoulder = detection_result.pose_landmarks[0][12].y
+    left_hand, right_hand = calhandposY(detection_result)
+    standard=abs(left_hand-right_hand)+0.001
+    if abs(left_shoulder-right_shoulder)<standard:
+        return True
+    else:
+        return False
