@@ -57,14 +57,14 @@ def draw_landmarks_on_image(image, detection_result):
     return image
 
 
-'''
+
 vs = VideoStream(src=0).start()  # 開啟攝影機
 
 # Add error handling for camera
 if not vs.stream.isOpened():
     print("Error: Could not open video stream.")
     exit()
-'''
+
 
 now_status = 0 #set the current status to stand by mode
 count=0
@@ -82,8 +82,8 @@ atBottomadded = False#prevent from multiple count at bottom
 can_count = False #make sure he already get on the top
 while True:
 
-    #frame = vs.read()
-    frame = openexistingvideo.readvideo(cap)
+    frame = vs.read()
+    #frame = openexistingvideo.readvideo(cap)
     #print(frame)
     if frame is not None:
         #print('running')
