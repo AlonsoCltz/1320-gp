@@ -20,9 +20,9 @@ This project is a real-time gesture feedback system designed to assist users in 
 
 - Python 3.7 or higher
 - Required Python libraries:
-  - `mediapipe`
-  - `opencv-python`
-  - `imutils`
+  - `MediaPipe (Apache 2.0, Copyright Google)`
+  - `OpenCV-Python (Apache 2.0, Copyright OpenCV Team)`
+  - `Imutils (MIT, Copyright Adrian Rosebrock)`
   - `playsound`
 
 ## Installation
